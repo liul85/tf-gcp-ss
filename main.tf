@@ -9,7 +9,7 @@ resource "google_compute_instance" "ssserver" {
   machine_type = "f1-micro"
 
   boot_disk {
-    initialize_params = {
+    initialize_params {
       image = "debian-cloud/debian-9"
     }
   }
@@ -17,8 +17,8 @@ resource "google_compute_instance" "ssserver" {
   network_interface {
     network = "default"
 
-    access_config = {
-      nat_ip = "${google_compute_address.static_ip.address}"
+    access_config {
+      nat_ip = google_compute_address.static_ip.address
     }
   }
 
@@ -38,3 +38,4 @@ resource "google_compute_firewall" "default" {
 resource "google_compute_address" "static_ip" {
   name = "ss-static-ip"
 }
+
