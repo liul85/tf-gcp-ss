@@ -1,7 +1,20 @@
+variable "project_id" {
+  type = string
+}
+
+variable "ss_password" {
+  type = string
+}
+
+provider "template" {
+  version = "~> 2.1"
+}
+
 provider "google" {
-  project = "fgfw-236501"
+  project = var.project_id
   region  = "asia-east2"
   zone    = "asia-east2-a"
+  version = "~> 3.41"
 }
 
 resource "google_compute_instance" "ssserver" {
@@ -22,7 +35,7 @@ resource "google_compute_instance" "ssserver" {
     }
   }
 
-  metadata_startup_script = "sudo apt-get update; sudo apt install -y shadowsocks-libev;"
+  metadata_startup_script = data.template_file.init.rendered
 }
 
 resource "google_compute_firewall" "default" {
@@ -39,3 +52,22 @@ resource "google_compute_address" "static_ip" {
   name = "ss-static-ip"
 }
 
+data "template_file" "init" {
+  template = "${file("init.tpl")}"
+
+  vars = {
+    password = var.ss_password
+  }
+}
+
+output "ss_server_ip" {
+  value = google_compute_address.static_ip.address
+}
+
+output "ss_server_port" {
+  value = 443
+}
+
+output "ss_encrypt_method" {
+  value = "aes-256-cfb"
+}
