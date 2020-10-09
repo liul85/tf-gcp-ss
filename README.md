@@ -33,3 +33,5 @@
 
 ### Note
 > The default region is Hong Kong
+> For Google Cloud Platform and Terraform learning purpose only, please delete in 24 hours after download.
+
