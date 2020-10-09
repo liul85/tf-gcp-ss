@@ -9,7 +9,7 @@
     $ terraform plan -var 'ss_password=your_ss_password' -var 'project_id=your_project_id' 
     $ terraform apply -var 'ss_password=your_ss_password' -var 'project_id=your_project_id' 
     ```
-4. you will get the result like 
+4. you will get the result as below, the region of vm is Hong Kong.
     ```bash
     ...
 
@@ -31,7 +31,6 @@
     ```
 5. Config your client 
 
-### Note
-> The default region is Hong Kong
-> For Google Cloud Platform and Terraform learning purpose only, please delete in 24 hours after download.
+## Notes
+> This repo is for learning purpose only, please delete in 24 hours after download.
 
