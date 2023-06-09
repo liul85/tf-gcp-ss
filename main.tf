@@ -6,24 +6,19 @@ variable "ss_password" {
   type = string
 }
 
-provider "template" {
-  version = "~> 2.1"
-}
-
 provider "google" {
   project = var.project_id
   region  = "asia-east2"
   zone    = "asia-east2-a"
-  version = "~> 3.41"
 }
 
 resource "google_compute_instance" "ssserver" {
   name         = "ss-server"
-  machine_type = "f1-micro"
+  machine_type = "e2-micro"
 
   boot_disk {
     initialize_params {
-      image = "debian-cloud/debian-9"
+      image = "debian-cloud/debian-11"
     }
   }
 
