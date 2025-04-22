@@ -30,29 +30,23 @@ resource "google_compute_instance" "ssserver" {
     }
   }
 
-  metadata_startup_script = data.template_file.init.rendered
+  metadata_startup_script = templatefile("${path.module}/init.tftpl", { password = var.ss_password })
 }
 
 resource "google_compute_firewall" "default" {
-  name    = "ss-firewall"
+  name    = "shadowsocks-firewall"
   network = "default"
 
   allow {
     protocol = "tcp"
     ports    = ["443", "80"]
   }
+
+  source_tags = ["web"]
 }
 
 resource "google_compute_address" "static_ip" {
   name = "ss-static-ip"
-}
-
-data "template_file" "init" {
-  template = "${file("init.tpl")}"
-
-  vars = {
-    password = var.ss_password
-  }
 }
 
 output "ss_server_ip" {
