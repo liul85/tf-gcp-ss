@@ -42,7 +42,7 @@ resource "google_compute_firewall" "default" {
     ports    = ["443", "80"]
   }
 
-  source_tags = ["web"]
+  source_ranges = ["0.0.0.0/0"]
 }
 
 resource "google_compute_address" "static_ip" {
