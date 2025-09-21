@@ -8,8 +8,8 @@ variable "ss_password" {
 
 provider "google" {
   project = var.project_id
-  region  = "asia-east2"
-  zone    = "asia-east2-a"
+  region  = "asia-south1"
+  zone    = "asia-south1-a"
 }
 
 resource "google_compute_instance" "ssserver" {
